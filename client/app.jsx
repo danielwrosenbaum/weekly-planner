@@ -12,6 +12,12 @@ export default class App extends React.Component {
     };
   }
 
+  componentDidMount() {
+    window.addEventListener('hashchange', () => {
+      this.setState({ route: parseRoute(window.location.hash) });
+    });
+  }
+
   renderPage() {
     const { route } = this.state;
     if (route.path === '' || route.path === 'home') {
