@@ -1,0 +1,26 @@
+.page-container {
+  display: flex;
+  height: 100vh;
+}
+
+.button-container {
+  display: flex;
+}
+
+.justify-content-ctr {
+  justify-content: center;
+}
+
+.align-items-ctr {
+  align-items: center;
+}
+
+.full-col {
+  width: 100%;
+}
+
+.add-btn {
+  width: 100px;
+  height: 50px;
+  border-radius: 1rem;
+}
