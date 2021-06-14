@@ -1,3 +1,3 @@
-# Weekly Planner
+# weekly-planner
 
 A full stack JavaScript solo project.
