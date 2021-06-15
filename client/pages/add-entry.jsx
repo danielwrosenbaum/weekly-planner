@@ -13,8 +13,23 @@ export default function AddEntry() {
 
   const handleSubmit = event => {
     event.preventDefault();
-    // eslint-disable-next-line no-console
-    console.log(time, description, dayOfWeek);
+    const entry = {
+      day: dayOfWeek,
+      time,
+      description
+    };
+    const req = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(entry)
+    };
+    fetch('/api/weeklyPlanner', req)
+      .then(res => res.json())
+      .then(result => {
+        setIsAddClicked(false);
+      });
   };
 
   const handleDayChange = event => {
