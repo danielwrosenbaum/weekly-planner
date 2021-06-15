@@ -5,3 +5,12 @@ set client_min_messages to warning;
 drop schema "public" cascade;
 
 create schema "public";
+
+create table "public"."planner" (
+  "entryId"               serial,
+  "day"                   text,
+  "time"                  text,
+  "description"           text,
+  "createdAt"             timestamptz(6) default now(),
+  primary key ("entryId")
+)
