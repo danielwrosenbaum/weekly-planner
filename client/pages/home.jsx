@@ -8,7 +8,7 @@ export default function Home(props) {
   }
   return (
     <>
-      <div className="page-container justify-content-ctr full-col align-items-ctr">
+      <div className="page-container justify-content-ctr col-full align-items-ctr">
         <div className="button-container justify-content-ctr">
           <button onClick={() => handleClick()} className="add-btn">Add an Entry</button>
       </div>
