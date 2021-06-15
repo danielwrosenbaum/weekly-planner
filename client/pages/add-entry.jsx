@@ -7,9 +7,9 @@ export default function AddEntry() {
   const [time, setTime] = useState('');
   const [description, setDescription] = useState('');
 
-  function handleCancel() {
+  const handleCancel = () => {
     setIsAddClicked(false);
-  }
+  };
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -55,7 +55,7 @@ export default function AddEntry() {
                 <h2>Add Entry</h2>
               </div>
             </div>
-            <div className="row pd-one">
+            <div className="row">
               <div className="col-full">
                 <div className="select-container">
                   <select
@@ -103,9 +103,9 @@ export default function AddEntry() {
                       rows="5"></textarea>
                   </div>
                 </div>
-                <div className="row pd-one">
-                  <div className="col-full btn-container">
-                    <button onClick={() => handleCancel()} className="btn-cancel">Cancel</button>
+                <div className="row pd-one btn-container">
+                  <div className="col-full  space-evenly">
+                    <button onClick={handleCancel} className="btn-cancel">Cancel</button>
                     <button type="submit" className="btn-submit">Submit</button>
                   </div>
                 </div>
