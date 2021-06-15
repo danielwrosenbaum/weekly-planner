@@ -2,7 +2,9 @@ import React from 'react';
 
 export default function AddEntry() {
   return (
-    <div className="page-container">
+    <div className="modal">
+
+    <div className="modal-container">
       <form>
         <div className="row">
           <div className="col-full">
@@ -55,6 +57,7 @@ export default function AddEntry() {
         </div>
 
       </form>
+    </div>
     </div>
   );
 }

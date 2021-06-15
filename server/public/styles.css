@@ -4,6 +4,22 @@
   height: 100vh;
 }
 
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(117, 109, 109, 0.514);
+}
+
+.modal-container {
+  display: flex;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
 .button-container {
   display: flex;
 }
