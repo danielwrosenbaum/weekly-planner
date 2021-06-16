@@ -5,13 +5,17 @@ export default function Home(props) {
   const [isAddClicked, setIsAddClicked] = useState(false);
 
   const handleClick = event => {
-    setIsAddClicked(true);
+    if (!isAddClicked) {
+      setIsAddClicked(true);
+    } else {
+      setIsAddClicked(false);
+    }
   };
-  if (isAddClicked) return <AddEntry />;
 
   return (
     <>
       <div className="page-container">
+        {(isAddClicked) && <AddEntry onClick={handleClick} />}
         <div className="row">
           <div className="col-full centered">
             <h1>Weekly Planner</h1>

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import Home from './home';
+// import Home from './home';
 
-export default function AddEntry() {
-  const [isAddClicked, setIsAddClicked] = useState(true);
+export default function AddEntry(props) {
+  // const [isAddClicked, setIsAddClicked] = useState(props);
   const [dayOfWeek, setDayofWeek] = useState('');
   const [time, setTime] = useState('');
   const [description, setDescription] = useState('');
 
   const handleCancel = () => {
-    setIsAddClicked(false);
+    props.onClick();
   };
 
   const handleSubmit = event => {
@@ -28,7 +28,7 @@ export default function AddEntry() {
     fetch('/api/weeklyPlanner', req)
       .then(res => res.json())
       .then(result => {
-        setIsAddClicked(false);
+        props.onClick();
       });
   };
 
@@ -44,7 +44,6 @@ export default function AddEntry() {
     setDescription(event.target.value);
   };
 
-  if (!isAddClicked) return <Home />;
   return (
     <div className="modal">
       <div className="modal-container">
@@ -59,7 +58,7 @@ export default function AddEntry() {
               <div className="col-full">
                 <div className="select-container">
                   <select
-                  onChange={handleDayChange}
+                    onChange={handleDayChange}
                     required
                     name="day">
                     <option value={''}>--Day of the Week--</option>
@@ -72,7 +71,7 @@ export default function AddEntry() {
                     <option value={'sunday'}>Sunday</option>
                   </select>
                   <select
-                  onChange={handleTimeChange}
+                    onChange={handleTimeChange}
                     required
                     name="time">
                     <option>--Time--</option>
@@ -116,4 +115,5 @@ export default function AddEntry() {
       </div>
     </div>
   );
+
 }
