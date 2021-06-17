@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AddEntry from './add-entry';
 
 export default function Home(props) {
   const [isAddClicked, setIsAddClicked] = useState(false);
   const [whichDayisClicked, setWhichDayisClicked] = useState('sunday');
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    loadData();
+  }, [whichDayisClicked]);
 
   const handleClick = event => {
     if (!isAddClicked) {
@@ -13,11 +18,37 @@ export default function Home(props) {
     }
   };
 
+  const loadData = () => {
+    fetch(`/api/weeklyPlanner/${whichDayisClicked}`)
+      .then(res => res.json())
+      .then(result => {
+        setData(result);
+      });
+  };
+
   const handleDayClick = event => {
     setWhichDayisClicked(event.target.value);
-    // eslint-disable-next-line no-console
-    console.log(whichDayisClicked);
   };
+  function renderDays() {
+    if (data) {
+      const renderedDays = (
+        <tbody>
+          {
+            data.map((entry, index) => {
+              return (
+                <tr key={index}>
+                  <td>{entry.time}</td>
+                  <td>{entry.description}</td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      );
+      return renderedDays;
+    }
+
+  }
 
   return (
     <>
@@ -60,6 +91,17 @@ export default function Home(props) {
               <button onClick={handleClick} className="add-btn">Add an Entry</button>
             </div>
           </div>
+        </div>
+        <div className="container">
+          <table>
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+{renderDays()}
+          </table>
         </div>
     </div>
     </>
