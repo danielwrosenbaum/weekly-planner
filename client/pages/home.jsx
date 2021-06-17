@@ -3,6 +3,7 @@ import AddEntry from './add-entry';
 
 export default function Home(props) {
   const [isAddClicked, setIsAddClicked] = useState(false);
+  const [whichDayisClicked, setWhichDayisClicked] = useState('sunday');
 
   const handleClick = event => {
     if (!isAddClicked) {
@@ -10,6 +11,12 @@ export default function Home(props) {
     } else {
       setIsAddClicked(false);
     }
+  };
+
+  const handleDayClick = event => {
+    setWhichDayisClicked(event.target.value);
+    // eslint-disable-next-line no-console
+    console.log(whichDayisClicked);
   };
 
   return (
@@ -24,25 +31,25 @@ export default function Home(props) {
         <div className="day-btns-container">
           <div className="row space-evenly wrap">
             <div className="pd-half align-self-ctr">
-              <button className="day-btns">Sunday</button>
+              <button value="sunday" onClick={handleDayClick} className="day-btns">Sunday</button>
             </div>
             <div className="pd-half">
-              <button className="day-btns">Monday</button>
+              <button value="monday" onClick={handleDayClick} className="day-btns">Monday</button>
             </div>
             <div className="pd-half">
-              <button className="day-btns">Tuesday</button>
+              <button value="tuesday" onClick={handleDayClick} className="day-btns">Tuesday</button>
             </div>
             <div className="pd-half">
-              <button className="day-btns">Wednesday</button>
+              <button value="wednesday" onClick={handleDayClick} className="day-btns">Wednesday</button>
             </div>
             <div className="pd-half">
-              <button className="day-btns">Thursday</button>
+              <button value="thursday" onClick={handleDayClick} className="day-btns">Thursday</button>
             </div>
             <div className="pd-half">
-              <button className="day-btns">Friday</button>
+              <button value="friday" onClick={handleDayClick} className="day-btns">Friday</button>
             </div>
             <div className="pd-half">
-              <button className="day-btns">Saturday</button>
+              <button value="saturday" onClick={handleDayClick} className="day-btns">Saturday</button>
             </div>
           </div>
 
