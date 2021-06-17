@@ -92,7 +92,7 @@ export default function Home(props) {
             </div>
           </div>
         </div>
-        <div className="container">
+        <div className="container col-full">
           <table>
             <thead>
               <tr>

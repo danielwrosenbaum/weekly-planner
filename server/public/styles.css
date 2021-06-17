@@ -138,3 +138,31 @@ textarea {
   width: 100%;
   border-radius: 0.5rem;
 }
+
+table {
+  width: 100%;
+  border: 2px solid black;
+  text-align: left;
+  margin: 1rem;
+}
+
+thead:first-child {
+  background-color: black;
+  color: white;
+}
+
+tr {
+  height: 2rem;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: lightgray;
+}
+
+th {
+  padding: 0.5rem;
+}
+
+td {
+  padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+}
