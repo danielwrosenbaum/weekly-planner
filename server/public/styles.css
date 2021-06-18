@@ -34,9 +34,6 @@ body {
 .modal-box {
   width: 65%;
   max-width: 600px;
-
-  /* min-width: 200px; */
-
   height: auto;
   background-color: white;
   border: 2px inset black;
@@ -44,8 +41,6 @@ body {
   color: black;
   font-size: 1.5rem;
   text-align: center;
-
-  /* padding: 1rem; */
 }
 
 .btn-container {
@@ -109,10 +104,6 @@ body {
 .add-btn {
   width: 125px;
   height: 25px;
-
-  /* border-radius: 1rem; */
-
-  /* box-shadow: 1px 2px 5px black; */
 }
 
 .pd-one {
@@ -127,9 +118,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  /* width: 85px;
-  height: 50px; */
   text-align: center;
   border-radius: 0.25rem;
   width: 100px;
@@ -139,10 +127,6 @@ body {
 button {
   box-shadow: 0 1px 2px #141e26;
   border: 0.5px solid #141e26;
-
-  /* border-radius: 0.25rem;
-  width: 100px;
-  height: 60px; */
   font-size: 1rem;
   background-color: #ccc;
   color: #262626;
@@ -154,7 +138,8 @@ button:hover {
   color: #f2f2f2;
 }
 
-select {
+select,
+input {
   padding: 0.25rem 0.5rem;
   border: 1px solid black;
   border-radius: 0.5rem;
@@ -211,6 +196,11 @@ th {
 
 .th-button {
   width: 10%;
+}
+
+.btn-table-row {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 td {

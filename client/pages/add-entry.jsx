@@ -85,35 +85,14 @@ export default function AddEntry(props) {
                     required
                     name="day">
                     <option value={''}>--Day of the Week--</option>
+                    <option value={'sunday'}>Sunday</option>
                     <option value={'monday'}>Monday</option>
                     <option value={'tuesday'}>Tuesday</option>
                     <option value={'wednesday'}>Wednesday</option>
                     <option value={'thursday'}>Thursday</option>
                     <option value={'friday'}>Friday</option>
                     <option value={'saturday'}>Saturday</option>
-                    <option value={'sunday'}>Sunday</option>
                   </select>
-                  {/* <select
-                    onChange={handleTimeChange}
-                    required
-                    name="time">
-                    <option>--Time--</option>
-                    <option>8:00</option>
-                    <option>9:00</option>
-                    <option>10:00</option>
-                    <option>11:00</option>
-                    <option>12:00</option>
-                    <option>1:00</option>
-                    <option>2:00</option>
-                    <option>3:00</option>
-                    <option>4:00</option>
-                    <option>5:00</option>
-                    <option>6:00</option>
-                    <option>7:00</option>
-                    <option>8:00</option>
-                    <option>9:00</option>
-                    <option>10:00</option>
-                  </select> */}
                   <input onChange={handleTimeChange} type="time" required name="time"></input>
                 </div>
                 <div className="row pd-one">

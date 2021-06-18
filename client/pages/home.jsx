@@ -47,7 +47,7 @@ export default function Home(props) {
                   <td>{entry.time}</td>
                   <td></td>
                   <td>{entry.description}</td>
-                  <td>
+                  <td className="btn-table-row">
                     <button>Edit</button>
                     <button>Delete</button>
                   </td>
