@@ -31,6 +31,7 @@ export default function AddEntry(props) {
       .then(res => res.json())
       .then(result => {
         props.onClick();
+        props.onSubmit();
       });
   };
 

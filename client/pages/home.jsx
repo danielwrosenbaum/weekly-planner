@@ -5,10 +5,11 @@ export default function Home(props) {
   const [isAddClicked, setIsAddClicked] = useState(false);
   const [whichDayisClicked, setWhichDayisClicked] = useState('sunday');
   const [data, setData] = useState(null);
+  const [newData, setNewData] = useState(true);
 
   useEffect(() => {
     loadData();
-  }, [whichDayisClicked]);
+  }, [newData]);
 
   const handleClick = event => {
     if (!isAddClicked) {
@@ -17,14 +18,20 @@ export default function Home(props) {
       setIsAddClicked(false);
     }
   };
+  const handleNewData = event => {
+    setNewData(true);
+  };
 
   const loadData = () => {
     fetch(`/api/weeklyPlanner/${whichDayisClicked}`)
       .then(res => res.json())
       .then(result => {
         setData(result);
+        setNewData(false);
       });
   };
+
+  const renderTitle = whichDayisClicked[0].toUpperCase() + whichDayisClicked.slice(1);
 
   const handleDayClick = event => {
     setWhichDayisClicked(event.target.value);
@@ -53,7 +60,7 @@ export default function Home(props) {
   return (
     <>
       <div className="page-container">
-        {(isAddClicked) && <AddEntry onClick={handleClick} />}
+        {(isAddClicked) && <AddEntry onClick={handleClick} onSubmit={handleNewData} />}
         <div className="row">
           <div className="col-full centered">
             <h1>Weekly Planner</h1>
@@ -90,6 +97,11 @@ export default function Home(props) {
             <div className="btn-container justify-content-ctr">
               <button onClick={handleClick} className="add-btn">Add an Entry</button>
             </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-full centered">
+            <h2>{renderTitle}</h2>
           </div>
         </div>
         <div className="container col-full">
