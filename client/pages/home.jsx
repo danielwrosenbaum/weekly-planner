@@ -9,7 +9,7 @@ export default function Home(props) {
 
   useEffect(() => {
     loadData();
-  }, [newData]);
+  }, [newData, whichDayisClicked]);
 
   const handleClick = event => {
     if (!isAddClicked) {
