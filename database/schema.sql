@@ -8,6 +8,7 @@ create schema "public";
 
 create table "public"."planner" (
   "entryId"               serial,
+  "indexTime"             text,
   "day"                   text,
   "time"                  text,
   "description"           text,

@@ -11,14 +11,30 @@ const jsonMiddleware = express.json();
 app.use(staticMiddleware);
 app.use(jsonMiddleware);
 
-app.post('/api/weeklyPlanner', (req, res, next) => {
-  const { day, time, description } = req.body;
+app.get('/api/weeklyPlanner/:dayOfWeek', (req, res, next) => {
+  const dayOfWeek = req.params.dayOfWeek;
   const sql = `
-  insert into "planner" ("day", "time", "description")
-  values ($1, $2, $3)
+  select *
+    from "planner"
+    where "day" = $1
+    order by "indexTime"
+  `;
+  const params = [dayOfWeek];
+  db.query(sql, params)
+    .then(result => {
+      res.status(201).json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/weeklyPlanner', (req, res, next) => {
+  const { day, time, description, indexTime } = req.body;
+  const sql = `
+  insert into "planner" ("day", "time", "description", "indexTime")
+  values ($1, $2, $3, $4)
   returning *
   `;
-  const params = [day, time, description];
+  const params = [day, time, description, indexTime];
   db.query(sql, params)
     .then(result => {
       res.status(201).json(result.rows[0]);

@@ -5,6 +5,7 @@ export default function AddEntry(props) {
   // const [isAddClicked, setIsAddClicked] = useState(props);
   const [dayOfWeek, setDayofWeek] = useState('');
   const [time, setTime] = useState('');
+  const [indexTime, setIndexTime] = useState('');
   const [description, setDescription] = useState('');
 
   const handleCancel = () => {
@@ -16,7 +17,8 @@ export default function AddEntry(props) {
     const entry = {
       day: dayOfWeek,
       time,
-      description
+      description,
+      indexTime
     };
     const req = {
       method: 'POST',
@@ -29,6 +31,7 @@ export default function AddEntry(props) {
       .then(res => res.json())
       .then(result => {
         props.onClick();
+        props.onSubmit();
       });
   };
 
@@ -37,7 +40,27 @@ export default function AddEntry(props) {
   };
 
   const handleTimeChange = event => {
-    setTime(event.target.value);
+    const splitTime = event.target.value.split(':');
+    const newArr = [];
+    let returnVal;
+    newArr.push(splitTime[1]);
+    if (splitTime[0] === '12') {
+      newArr.unshift(splitTime[0]);
+      returnVal = newArr.join(':') + 'PM';
+    } else if (splitTime[0] === '00') {
+      newArr.unshift('12');
+      returnVal = newArr.join(':') + 'AM';
+    } else if (splitTime[0] > 12) {
+      const newTime = splitTime[0] - '12';
+      newArr.unshift(newTime);
+      returnVal = newArr.join(':') + 'PM';
+    } else {
+      newArr.unshift(splitTime[0]);
+      returnVal = newArr.join(':') + 'AM';
+    }
+
+    setIndexTime(splitTime.join(''));
+    setTime(returnVal);
   };
 
   const handleDescriptionChange = event => {
@@ -70,7 +93,7 @@ export default function AddEntry(props) {
                     <option value={'saturday'}>Saturday</option>
                     <option value={'sunday'}>Sunday</option>
                   </select>
-                  <select
+                  {/* <select
                     onChange={handleTimeChange}
                     required
                     name="time">
@@ -90,7 +113,8 @@ export default function AddEntry(props) {
                     <option>8:00</option>
                     <option>9:00</option>
                     <option>10:00</option>
-                  </select>
+                  </select> */}
+                  <input onChange={handleTimeChange} type="time" required name="time"></input>
                 </div>
                 <div className="row pd-one">
                   <div className="col-full">
