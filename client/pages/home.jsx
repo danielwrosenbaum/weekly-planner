@@ -22,15 +22,6 @@ export default function Home(props) {
     }
   };
 
-  // const handleEditClick = event => {
-  //   console.log(event.target.value);
-  //   if (!isEditClicked) {
-  //     setisEditClicked(true);
-  //   } else {
-  //     setisEditClicked(false);
-  //   }
-  // };
-
   const handleEdit = event => {
     if (!isEditClicked) {
       setisEditClicked(true);
@@ -71,10 +62,6 @@ export default function Home(props) {
         <tbody>
           {
             data.map((entry, index) => {
-              // const entry = {
-              //   time: entry.time,
-              //   description: entry.description
-              // }
               return (
                 <tr key={index}>
                   <td>{entry.time}</td>
@@ -154,10 +141,10 @@ export default function Home(props) {
                 <th className="th-button"></th>
               </tr>
             </thead>
-{renderDays()}
+            {renderDays()}
           </table>
         </div>
-    </div>
+      </div>
     </>
   );
 }
