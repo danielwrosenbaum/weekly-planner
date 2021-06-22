@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import AddEntry from './add-entry';
+import EditEntry from './edit-entry';
 
 export default function Home(props) {
   const [isAddClicked, setIsAddClicked] = useState(false);
   const [isEditClicked, setisEditClicked] = useState(false);
   const [whichDayisClicked, setWhichDayisClicked] = useState('sunday');
   const [data, setData] = useState(null);
+  const [editEntry, seteditEntry] = useState(null);
   const [newData, setNewData] = useState(true);
 
   useEffect(() => {
@@ -20,14 +22,23 @@ export default function Home(props) {
     }
   };
 
-  const handleEditClick = event => {
+  // const handleEditClick = event => {
+  //   console.log(event.target.value);
+  //   if (!isEditClicked) {
+  //     setisEditClicked(true);
+  //   } else {
+  //     setisEditClicked(false);
+  //   }
+  // };
+
+  function handleEditClick(obj) {
     if (!isEditClicked) {
       setisEditClicked(true);
     } else {
       setisEditClicked(false);
     }
-  };
-
+    seteditEntry(obj);
+  }
   const handleNewData = event => {
     setNewData(true);
   };
@@ -52,13 +63,17 @@ export default function Home(props) {
         <tbody>
           {
             data.map((entry, index) => {
+              // const entry = {
+              //   time: entry.time,
+              //   description: entry.description
+              // }
               return (
                 <tr key={index}>
                   <td>{entry.time}</td>
                   <td></td>
                   <td>{entry.description}</td>
                   <td className="btn-table-row">
-                    <button onClick={handleEditClick}>Edit</button>
+                    <button value={entry} onClick={() => handleEditClick(entry)}>Edit</button>
                     <button>Delete</button>
                   </td>
                 </tr>
@@ -76,6 +91,7 @@ export default function Home(props) {
     <>
       <div className="page-container">
         {(isAddClicked) && <AddEntry onClick={handleClick} onSubmit={handleNewData} />}
+        {(isEditClicked) && <EditEntry value={editEntry} onClick={handleEditClick} onSubmit={handleNewData} />}
         <div className="row">
           <div className="col-full centered">
             <h2>Weekly Planner</h2>
