@@ -3,6 +3,7 @@ import AddEntry from './add-entry';
 
 export default function Home(props) {
   const [isAddClicked, setIsAddClicked] = useState(false);
+  const [isEditClicked, setisEditClicked] = useState(false);
   const [whichDayisClicked, setWhichDayisClicked] = useState('sunday');
   const [data, setData] = useState(null);
   const [newData, setNewData] = useState(true);
@@ -18,6 +19,15 @@ export default function Home(props) {
       setIsAddClicked(false);
     }
   };
+
+  const handleEditClick = event => {
+    if (!isEditClicked) {
+      setisEditClicked(true);
+    } else {
+      setisEditClicked(false);
+    }
+  };
+
   const handleNewData = event => {
     setNewData(true);
   };
@@ -48,7 +58,7 @@ export default function Home(props) {
                   <td></td>
                   <td>{entry.description}</td>
                   <td className="btn-table-row">
-                    <button>Edit</button>
+                    <button onClick={handleEditClick}>Edit</button>
                     <button>Delete</button>
                   </td>
                 </tr>
