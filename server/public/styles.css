@@ -1,9 +1,7 @@
-* {
-  box-sizing: border-box;
-}
 
-button {
-  cursor: pointer;
+body {
+  color: #0d0d0d;
+  background-color: #f2f2f2;
 }
 
 .page-container {
@@ -23,7 +21,7 @@ button {
   right: 0;
   left: 0;
   bottom: 0;
-  background-color: rgba(117, 109, 109, 0.514);
+  background-color: #737373af;
 }
 
 .modal-container {
@@ -36,9 +34,6 @@ button {
 .modal-box {
   width: 65%;
   max-width: 600px;
-
-  /* min-width: 200px; */
-
   height: auto;
   background-color: white;
   border: 2px inset black;
@@ -46,12 +41,11 @@ button {
   color: black;
   font-size: 1.5rem;
   text-align: center;
-
-  /* padding: 1rem; */
 }
 
 .btn-container {
   display: flex;
+  margin-left: 2rem;
 }
 
 .container {
@@ -108,30 +102,44 @@ button {
 }
 
 .add-btn {
-  width: 100px;
-  height: 50px;
-  border-radius: 1rem;
-  box-shadow: 1px 2px 5px black;
+  width: 125px;
+  height: 25px;
 }
 
 .pd-one {
   padding: 1rem;
 }
 
-.pd-half {
-  padding: 0.5rem;
+.pd-qtr {
+  padding: 0.25rem;
 }
 
 .day-btns {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 85px;
-  height: 50px;
   text-align: center;
+  border-radius: 0.25rem;
+  width: 100px;
+  height: 60px;
 }
 
-select {
+button {
+  box-shadow: 0 1px 2px #141e26;
+  border: 0.5px solid #141e26;
+  font-size: 1rem;
+  background-color: #ccc;
+  color: #262626;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: #8c8c8c;
+  color: #f2f2f2;
+}
+
+select,
+input {
   padding: 0.25rem 0.5rem;
   border: 1px solid black;
   border-radius: 0.5rem;
@@ -145,14 +153,15 @@ textarea {
 
 table {
   width: 100%;
-  border: 2px solid black;
+  box-shadow: 0 1px 2.5px #141e26;
+  border: 1px solid #141e26;
   text-align: left;
-  margin: 1rem;
+  margin: 1rem 2rem;
 }
 
 thead:first-child {
-  background-color: black;
-  color: white;
+  background: linear-gradient(-120deg, #737373 0%, #262626 75%);
+  color: #f2f2f2;
 }
 
 tr {
@@ -160,11 +169,38 @@ tr {
 }
 
 tbody tr:nth-child(odd) {
-  background-color: lightgray;
+  background-color: #ccc;
+
+  /* background: linear-gradient(-120deg, #F2F2F2 0%, #A1A3A6 100%); */
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 
 th {
   padding: 0.5rem;
+}
+
+.th-time {
+  width: 10%;
+}
+
+.th-location {
+  width: 20%;
+}
+
+.th-description {
+  width: 60%;
+}
+
+.th-button {
+  width: 10%;
+}
+
+.btn-table-row {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 td {

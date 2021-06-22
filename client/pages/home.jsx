@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import AddEntry from './add-entry';
+import EditEntry from './edit-entry';
 
 export default function Home(props) {
   const [isAddClicked, setIsAddClicked] = useState(false);
+  const [isEditClicked, setisEditClicked] = useState(false);
   const [whichDayisClicked, setWhichDayisClicked] = useState('sunday');
   const [data, setData] = useState(null);
+  const [editEntry, seteditEntry] = useState(null);
   const [newData, setNewData] = useState(true);
 
   useEffect(() => {
@@ -18,6 +21,23 @@ export default function Home(props) {
       setIsAddClicked(false);
     }
   };
+
+  const handleEdit = event => {
+    if (!isEditClicked) {
+      setisEditClicked(true);
+    } else {
+      setisEditClicked(false);
+    }
+  };
+
+  function handleEditClick(obj) {
+    if (!isEditClicked) {
+      setisEditClicked(true);
+    } else {
+      setisEditClicked(false);
+    }
+    seteditEntry(obj);
+  }
   const handleNewData = event => {
     setNewData(true);
   };
@@ -45,7 +65,12 @@ export default function Home(props) {
               return (
                 <tr key={index}>
                   <td>{entry.time}</td>
+                  <td></td>
                   <td>{entry.description}</td>
+                  <td className="btn-table-row">
+                    <button value={entry} onClick={() => handleEditClick(entry)}>Edit</button>
+                    <button>Delete</button>
+                  </td>
                 </tr>
               );
             })
@@ -61,61 +86,65 @@ export default function Home(props) {
     <>
       <div className="page-container">
         {(isAddClicked) && <AddEntry onClick={handleClick} onSubmit={handleNewData} />}
+        {(isEditClicked) && <EditEntry value={editEntry} onClick={handleEdit} onSubmit={handleNewData} />}
         <div className="row">
           <div className="col-full centered">
-            <h1>Weekly Planner</h1>
+            <h2>Weekly Planner</h2>
           </div>
         </div>
         <div className="day-btns-container">
           <div className="row space-evenly wrap">
-            <div className="pd-half align-self-ctr">
+            <div className="pd-qtr">
               <button value="sunday" onClick={handleDayClick} className="day-btns">Sunday</button>
             </div>
-            <div className="pd-half">
+            <div className="pd-qtr">
               <button value="monday" onClick={handleDayClick} className="day-btns">Monday</button>
             </div>
-            <div className="pd-half">
+            <div className="pd-qtr">
               <button value="tuesday" onClick={handleDayClick} className="day-btns">Tuesday</button>
             </div>
-            <div className="pd-half">
+            <div className="pd-qtr">
               <button value="wednesday" onClick={handleDayClick} className="day-btns">Wednesday</button>
             </div>
-            <div className="pd-half">
+            <div className="pd-qtr">
               <button value="thursday" onClick={handleDayClick} className="day-btns">Thursday</button>
             </div>
-            <div className="pd-half">
+            <div className="pd-qtr">
               <button value="friday" onClick={handleDayClick} className="day-btns">Friday</button>
             </div>
-            <div className="pd-half">
+            <div className="pd-qtr">
               <button value="saturday" onClick={handleDayClick} className="day-btns">Saturday</button>
             </div>
           </div>
 
         </div>
-        <div className="row justify-content-ctr">
-          <div className="col-full">
-            <div className="btn-container justify-content-ctr">
-              <button onClick={handleClick} className="add-btn">Add an Entry</button>
-            </div>
+
+        <div className="row">
+          <div className="col-full centered">
+            <h1>{renderTitle}</h1>
           </div>
         </div>
         <div className="row">
-          <div className="col-full centered">
-            <h2>{renderTitle}</h2>
+          <div className="col-full">
+            <div className="btn-container">
+              <button onClick={handleClick} className="add-btn"> + Add an Entry</button>
+            </div>
           </div>
         </div>
-        <div className="container col-full">
+        <div className="container col-full justify-content-ctr">
           <table>
             <thead>
               <tr>
-                <th>Time</th>
-                <th>Description</th>
+                <th className="th-time">Time</th>
+                <th className="th-location">Location</th>
+                <th className="th-description">Description</th>
+                <th className="th-button"></th>
               </tr>
             </thead>
-{renderDays()}
+            {renderDays()}
           </table>
         </div>
-    </div>
+      </div>
     </>
   );
 }
