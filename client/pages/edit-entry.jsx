@@ -86,6 +86,7 @@ export default function EditEntry(props) {
               <div className="col-full">
                 <div className="select-container">
                   <select
+                  value={dayOfWeek}
                     onChange={handleDayChange}
                     required
                     name="day">
