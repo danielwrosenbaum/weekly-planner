@@ -41,6 +41,28 @@ app.post('/api/weeklyPlanner', (req, res, next) => {
     })
     .catch(err => next(err));
 });
+
+app.put('/api/weeklyPlanner/:entryId', (req, res, next) => {
+  const entryId = req.params.entryId;
+  const { day, time, description, indexTime } = req.body;
+  const sql = `
+  update "planner"
+    set "day" = $1,
+        "time" = $2,
+        "description" = $3,
+        "indexTime" = $4
+    where "entryId" = $5
+    returning *
+  `;
+  const params = [day, time, description, indexTime, entryId];
+  db.query(sql, params)
+    .then(result => {
+      const [entry] = result.rows;
+      res.status(201).json(entry);
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

@@ -14,6 +14,7 @@ export default function EditEntry(props) {
 
   const handleSubmit = event => {
     event.preventDefault();
+    const entryId = props.value.entryId;
     const entry = {
       day: dayOfWeek,
       time,
@@ -27,7 +28,7 @@ export default function EditEntry(props) {
       },
       body: JSON.stringify(entry)
     };
-    fetch('/api/weeklyPlanner', req)
+    fetch(`/api/weeklyPlanner/${entryId}`, req)
       .then(res => res.json())
       .then(result => {
         props.onClick();

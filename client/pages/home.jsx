@@ -31,6 +31,14 @@ export default function Home(props) {
   //   }
   // };
 
+  const handleEdit = event => {
+    if (!isEditClicked) {
+      setisEditClicked(true);
+    } else {
+      setisEditClicked(false);
+    }
+  };
+
   function handleEditClick(obj) {
     if (!isEditClicked) {
       setisEditClicked(true);
@@ -91,7 +99,7 @@ export default function Home(props) {
     <>
       <div className="page-container">
         {(isAddClicked) && <AddEntry onClick={handleClick} onSubmit={handleNewData} />}
-        {(isEditClicked) && <EditEntry value={editEntry} onClick={handleEditClick} onSubmit={handleNewData} />}
+        {(isEditClicked) && <EditEntry value={editEntry} onClick={handleEdit} onSubmit={handleNewData} />}
         <div className="row">
           <div className="col-full centered">
             <h2>Weekly Planner</h2>
