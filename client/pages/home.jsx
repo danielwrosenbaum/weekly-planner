@@ -5,6 +5,7 @@ import EditEntry from './edit-entry';
 export default function Home(props) {
   const [isAddClicked, setIsAddClicked] = useState(false);
   const [isEditClicked, setisEditClicked] = useState(false);
+  const [isDeleteClicked, setisDeleteClicked] = useState(false);
   const [whichDayisClicked, setWhichDayisClicked] = useState('sunday');
   const [data, setData] = useState(null);
   const [editEntry, seteditEntry] = useState(null);
@@ -28,6 +29,15 @@ export default function Home(props) {
     } else {
       setisEditClicked(false);
     }
+  };
+
+  const handleDelete = event => {
+    if (!isDeleteClicked) {
+      setisDeleteClicked(true);
+    } else {
+      setisDeleteClicked(false);
+    }
+
   };
 
   function handleEditClick(obj) {
@@ -69,7 +79,7 @@ export default function Home(props) {
                   <td>{entry.description}</td>
                   <td className="btn-table-row">
                     <button value={entry} onClick={() => handleEditClick(entry)}>Edit</button>
-                    <button>Delete</button>
+                    <button value={entry} onClick={handleDelete}>Delete</button>
                   </td>
                 </tr>
               );
