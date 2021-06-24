@@ -88,6 +88,8 @@ export default function Home(props) {
         </tbody>
       );
       return renderedDays;
+    } else {
+      return null;
     }
 
   }
