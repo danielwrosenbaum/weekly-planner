@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AddEntry from './add-entry';
 import EditEntry from './edit-entry';
+import DeleteModal from './delete-modal';
 
 export default function Home(props) {
   const [isAddClicked, setIsAddClicked] = useState(false);
@@ -13,7 +14,7 @@ export default function Home(props) {
 
   useEffect(() => {
     loadData();
-  }, [newData, whichDayisClicked]);
+  }, [newData, whichDayisClicked, isDeleteClicked]);
 
   const handleClick = event => {
     if (!isAddClicked) {
@@ -31,14 +32,14 @@ export default function Home(props) {
     }
   };
 
-  const handleDelete = event => {
+  function handleDelete(obj) {
     if (!isDeleteClicked) {
       setisDeleteClicked(true);
     } else {
       setisDeleteClicked(false);
     }
-
-  };
+    seteditEntry(obj);
+  }
 
   function handleEditClick(obj) {
     if (!isEditClicked) {
@@ -79,7 +80,7 @@ export default function Home(props) {
                   <td>{entry.description}</td>
                   <td className="btn-table-row">
                     <button value={entry} onClick={() => handleEditClick(entry)}>Edit</button>
-                    <button value={entry} onClick={handleDelete}>Delete</button>
+                    <button value={entry} onClick={() => handleDelete(entry)}>Delete</button>
                   </td>
                 </tr>
               );
@@ -99,6 +100,7 @@ export default function Home(props) {
       <div className="page-container">
         {(isAddClicked) && <AddEntry onClick={handleClick} onSubmit={handleNewData} />}
         {(isEditClicked) && <EditEntry value={editEntry} onClick={handleEdit} onSubmit={handleNewData} />}
+        {(isDeleteClicked) && <DeleteModal value={editEntry} onClick={handleDelete} />}
         <div className="row">
           <div className="col-full centered">
             <h2>Weekly Planner</h2>
