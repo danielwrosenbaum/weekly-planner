@@ -127,7 +127,7 @@ export default function Home(props) {
   return (
     <>
       <div className="page-container">
-        {(isAddClicked) && <AddEntry onClick={handleClick} onSubmit={handleNewData} />}
+        {(isAddClicked) && <AddEntry onClick={handleClick} onSubmit={handleNewData} value={whichDayisClicked} />}
         {(isEditClicked) && <EditEntry value={editEntry} onClick={handleEdit} onSubmit={handleNewData} />}
         {(isDeleteClicked) && <DeleteModal value={editEntry} onClick={handleDelete} />}
         <div className="row">

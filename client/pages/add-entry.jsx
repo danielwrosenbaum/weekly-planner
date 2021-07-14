@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 export default function AddEntry(props) {
   // const [isAddClicked, setIsAddClicked] = useState(props);
-  const [dayOfWeek, setDayofWeek] = useState('');
+  const [dayOfWeek, setDayofWeek] = useState(props.value);
   const [time, setTime] = useState('');
   const [indexTime, setIndexTime] = useState('');
   const [description, setDescription] = useState('');
@@ -83,7 +83,8 @@ export default function AddEntry(props) {
                   <select
                     onChange={handleDayChange}
                     required
-                    name="day">
+                    name="day"
+                    value={dayOfWeek}>
                     <option value={''}>--Day of the Week--</option>
                     <option value={'sunday'}>Sunday</option>
                     <option value={'monday'}>Monday</option>
