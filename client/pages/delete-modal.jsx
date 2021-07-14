@@ -19,7 +19,7 @@ export default function DeleteModal(props) {
   return (
     <div className="modal">
       <div className="modal-container">
-        <div className="modal-box">
+        <div className="modal-box delete-modal">
           <div className="row">
             <div className="col-full">
               <h3>Are You Sure You Want to Delete This Entry?</h3>
