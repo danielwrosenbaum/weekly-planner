@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AddEntry from './add-entry';
 import EditEntry from './edit-entry';
 import DeleteModal from './delete-modal';
+import { startOfWeek, endOfWeek, format } from 'date-fns';
 
 export default function Home(props) {
   const [isAddClicked, setIsAddClicked] = useState(false);
@@ -61,8 +62,22 @@ export default function Home(props) {
         setNewData(false);
       });
   };
+  function renderDates() {
+    const curr = new Date();
+    // console.log(startOfWeek(curr));
 
+    const start = format(startOfWeek(curr), 'MM/dd/yyyy');
+    const end = format(endOfWeek(curr), 'MM/dd/yyyy');
+    const weekDates = {
+      start,
+      end
+    };
+    return weekDates;
+  }
+
+  const { start, end } = renderDates();
   const renderTitle = whichDayisClicked[0].toUpperCase() + whichDayisClicked.slice(1);
+  const renderWeekTitle = start + ' to ' + end;
 
   const handleDayClick = event => {
     setWhichDayisClicked(event.target.value);
@@ -95,6 +110,7 @@ export default function Home(props) {
 
   }
 
+  // console.log(renderDates());
   return (
     <>
       <div className="page-container">
@@ -104,6 +120,7 @@ export default function Home(props) {
         <div className="row">
           <div className="col-full centered">
             <h2>Weekly Planner</h2>
+            <h3>{renderWeekTitle}</h3>
           </div>
         </div>
         <div className="day-btns-container">
