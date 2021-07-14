@@ -13,5 +13,6 @@ create table "public"."planner" (
   "time"                  text,
   "description"           text,
   "createdAt"             timestamptz(6) default now(),
-  primary key ("entryId")
+  primary key ("entryId"),
+  unique("indexTime")
 )
