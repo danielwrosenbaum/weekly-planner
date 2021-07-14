@@ -14,8 +14,10 @@ export default function AddEntry(props) {
 
   const handleSubmit = event => {
     event.preventDefault();
+    const fullDate = props.date + ', ' + time;
     const entry = {
       day: dayOfWeek,
+      fullDate,
       time,
       description,
       indexTime

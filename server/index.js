@@ -28,13 +28,13 @@ app.get('/api/weeklyPlanner/:dayOfWeek', (req, res, next) => {
 });
 
 app.post('/api/weeklyPlanner', (req, res, next) => {
-  const { day, time, description, indexTime } = req.body;
+  const { day, time, description, indexTime, fullDate } = req.body;
   const sql = `
-  insert into "planner" ("day", "time", "description", "indexTime")
-  values ($1, $2, $3, $4)
+  insert into "planner" ("day", "time", "description", "indexTime", "fullDate")
+  values ($1, $2, $3, $4, $5)
   returning *
   `;
-  const params = [day, time, description, indexTime];
+  const params = [day, time, description, indexTime, fullDate];
   db.query(sql, params)
     .then(result => {
       res.status(201).json(result.rows[0]);
