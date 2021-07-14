@@ -83,7 +83,8 @@ export default function Home(props) {
   const renderWeekTitle = start + ' to ' + end;
 
   const handleDayClick = event => {
-    setWhichDayisClicked(event.target.value);
+    const buttonValue = event.target.closest('button').value;
+    setWhichDayisClicked(buttonValue);
   };
   function renderDays() {
     if (data) {
