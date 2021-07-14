@@ -68,14 +68,17 @@ export default function Home(props) {
 
     const start = format(startOfWeek(curr), 'MM/dd/yyyy');
     const end = format(endOfWeek(curr), 'MM/dd/yyyy');
+    const justDayDate = format(startOfWeek(curr), 'dd');
+
     const weekDates = {
       start,
-      end
+      end,
+      justDayDate
     };
     return weekDates;
   }
 
-  const { start, end } = renderDates();
+  const { start, end, justDayDate } = renderDates();
   const renderTitle = whichDayisClicked[0].toUpperCase() + whichDayisClicked.slice(1);
   const renderWeekTitle = start + ' to ' + end;
 
@@ -126,25 +129,45 @@ export default function Home(props) {
         <div className="day-btns-container">
           <div className="row space-evenly wrap">
             <div className="pd-qtr">
-              <button value="sunday" onClick={handleDayClick} className="day-btns">Sunday</button>
+              <button value="sunday" onClick={handleDayClick} className="day-btns">
+                <div>Sunday</div>
+                <div>{parseInt(justDayDate)}</div>
+                </button>
             </div>
             <div className="pd-qtr">
-              <button value="monday" onClick={handleDayClick} className="day-btns">Monday</button>
+              <button value="monday" onClick={handleDayClick} className="day-btns">
+                <div>Monday</div>
+                <div>{parseInt(justDayDate) + 1}</div>
+              </button>
             </div>
             <div className="pd-qtr">
-              <button value="tuesday" onClick={handleDayClick} className="day-btns">Tuesday</button>
+              <button value="tuesday" onClick={handleDayClick} className="day-btns">
+                <div>Tuesday</div>
+                <div>{parseInt(justDayDate) + 2}</div>
+              </button>
             </div>
             <div className="pd-qtr">
-              <button value="wednesday" onClick={handleDayClick} className="day-btns">Wednesday</button>
+              <button value="wednesday" onClick={handleDayClick} className="day-btns">
+                <div>Wednesday</div>
+                <div>{parseInt(justDayDate) + 3}</div>
+              </button>
             </div>
             <div className="pd-qtr">
-              <button value="thursday" onClick={handleDayClick} className="day-btns">Thursday</button>
+              <button value="thursday" onClick={handleDayClick} className="day-btns">
+                <div>Thursday</div>
+                <div>{parseInt(justDayDate) + 4}</div>
+              </button>
             </div>
             <div className="pd-qtr">
-              <button value="friday" onClick={handleDayClick} className="day-btns">Friday</button>
+              <button value="friday" onClick={handleDayClick} className="day-btns">
+                <div>Friday</div>
+                <div>{parseInt(justDayDate) + 5}</div></button>
             </div>
             <div className="pd-qtr">
-              <button value="saturday" onClick={handleDayClick} className="day-btns">Saturday</button>
+              <button value="saturday" onClick={handleDayClick} className="day-btns">
+                <div>Saturday</div>
+                <div>{parseInt(justDayDate) + 6}</div>
+              </button>
             </div>
           </div>
 
