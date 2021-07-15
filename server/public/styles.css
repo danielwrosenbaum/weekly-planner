@@ -1,7 +1,7 @@
 
 body {
-  color: #0d0d0d;
-  background-color: #f2f2f2;
+  color: #053742;
+  background-color: #e8f0f2;
 }
 
 .page-container {
@@ -208,4 +208,32 @@ th {
 
 td {
   padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+}
+
+.sun-btn {
+  background-color: #d9f0fd;
+}
+
+.mon-btn {
+  background-color: #d0edfc;
+}
+
+.tues-btn {
+  background-color: #c7e9fc;
+}
+
+.wed-btn {
+  background-color: #bde5fb;
+}
+
+.thurs-btn {
+  background-color: #b4e2fb;
+}
+
+.fri-btn {
+  background-color: #abdefa;
+}
+
+.sat-btn {
+  background-color: #a2dbfa;
 }
