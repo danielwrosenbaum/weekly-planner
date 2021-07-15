@@ -109,8 +109,11 @@ export default function Home(props) {
                   <td>{entry.location}</td>
                   <td>{entry.description}</td>
                   <td className="btn-table-row">
-                    <button value={entry} onClick={() => handleEditClick(entry)}>Edit</button>
-                    <button value={entry} onClick={() => handleDelete(entry)}>Delete</button>
+                    <div className="btn-table-container">
+                      <button className="btn-table-edit" value={entry} onClick={() => handleEditClick(entry)}>Edit</button>
+                      <button className="btn-table-delete" value={entry} onClick={() => handleDelete(entry)}>Delete</button>
+                    </div>
+
                   </td>
                 </tr>
               );
@@ -132,7 +135,7 @@ export default function Home(props) {
         {(isDeleteClicked) && <DeleteModal value={editEntry} onClick={handleDelete} />}
         <div className="row">
           <div className="col-full centered">
-            <h2>Weekly Planner</h2>
+            <h2 className="page-title">Weekly Planner</h2>
             <h3>{renderWeekTitle}</h3>
           </div>
         </div>
