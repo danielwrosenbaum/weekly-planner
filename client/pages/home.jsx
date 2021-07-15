@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import AddEntry from './add-entry';
 import EditEntry from './edit-entry';
 import DeleteModal from './delete-modal';
+import { startOfWeek, endOfWeek, format, eachDayOfInterval } from 'date-fns';
 
 export default function Home(props) {
   const [isAddClicked, setIsAddClicked] = useState(false);
   const [isEditClicked, setisEditClicked] = useState(false);
   const [isDeleteClicked, setisDeleteClicked] = useState(false);
   const [whichDayisClicked, setWhichDayisClicked] = useState('sunday');
+  const [whichDayNumberisClicked, setwhichDayNumberisClicked] = useState(0);
   const [data, setData] = useState(null);
   const [editEntry, seteditEntry] = useState(null);
   const [newData, setNewData] = useState(true);
@@ -61,11 +63,39 @@ export default function Home(props) {
         setNewData(false);
       });
   };
+  function renderDates() {
+    const curr = new Date();
+    const start = format(startOfWeek(curr), 'MM/dd/yyyy');
+    const end = format(endOfWeek(curr), 'MM/dd/yyyy');
+    const justDayDate = format(startOfWeek(curr), 'dd');
+    const weekDates = {
+      start,
+      end,
+      justDayDate
+    };
+    return weekDates;
+  }
 
+  const { start, end, justDayDate } = renderDates();
   const renderTitle = whichDayisClicked[0].toUpperCase() + whichDayisClicked.slice(1);
+  function renderDayOfWeekDate(day) {
+    const curr = new Date();
+    const start = startOfWeek(curr);
+    const end = endOfWeek(curr);
+    const thisWeek = eachDayOfInterval({
+      start,
+      end
+    });
+    return thisWeek[day];
+  }
+  const renderDayTitle = format(renderDayOfWeekDate(whichDayNumberisClicked), 'MM/dd/yyyy');
+  const renderWeekTitle = start + ' - ' + end;
 
   const handleDayClick = event => {
-    setWhichDayisClicked(event.target.value);
+    const button = event.target.closest('button');
+    const buttonValue = button.value;
+    setWhichDayisClicked(buttonValue);
+    setwhichDayNumberisClicked(button.id);
   };
   function renderDays() {
     if (data) {
@@ -94,40 +124,60 @@ export default function Home(props) {
     }
 
   }
-
   return (
     <>
       <div className="page-container">
-        {(isAddClicked) && <AddEntry onClick={handleClick} onSubmit={handleNewData} />}
-        {(isEditClicked) && <EditEntry value={editEntry} onClick={handleEdit} onSubmit={handleNewData} />}
+        {(isAddClicked) && <AddEntry onClick={handleClick} onSubmit={handleNewData} value={whichDayisClicked} date={renderDayTitle} />}
+        {(isEditClicked) && <EditEntry value={editEntry} onClick={handleEdit} onSubmit={handleNewData} date={renderDayTitle} dateNumber={whichDayNumberisClicked} />}
         {(isDeleteClicked) && <DeleteModal value={editEntry} onClick={handleDelete} />}
         <div className="row">
           <div className="col-full centered">
             <h2>Weekly Planner</h2>
+            <h3>{renderWeekTitle}</h3>
           </div>
         </div>
         <div className="day-btns-container">
           <div className="row space-evenly wrap">
             <div className="pd-qtr">
-              <button value="sunday" onClick={handleDayClick} className="day-btns">Sunday</button>
+              <button value="sunday" id={0} onClick={handleDayClick} className="day-btns">
+                <div>Sunday</div>
+                <div>{parseInt(justDayDate)}</div>
+                </button>
             </div>
             <div className="pd-qtr">
-              <button value="monday" onClick={handleDayClick} className="day-btns">Monday</button>
+              <button value="monday" id="1" onClick={handleDayClick} className="day-btns">
+                <div>Monday</div>
+                <div>{parseInt(justDayDate) + 1}</div>
+              </button>
             </div>
             <div className="pd-qtr">
-              <button value="tuesday" onClick={handleDayClick} className="day-btns">Tuesday</button>
+              <button value="tuesday" id="2" onClick={handleDayClick} className="day-btns">
+                <div>Tuesday</div>
+                <div>{parseInt(justDayDate) + 2}</div>
+              </button>
             </div>
             <div className="pd-qtr">
-              <button value="wednesday" onClick={handleDayClick} className="day-btns">Wednesday</button>
+              <button value="wednesday" id="3" onClick={handleDayClick} className="day-btns">
+                <div>Wednesday</div>
+                <div>{parseInt(justDayDate) + 3}</div>
+              </button>
             </div>
             <div className="pd-qtr">
-              <button value="thursday" onClick={handleDayClick} className="day-btns">Thursday</button>
+              <button value="thursday" id="4" onClick={handleDayClick} className="day-btns">
+                <div>Thursday</div>
+                <div>{parseInt(justDayDate) + 4}</div>
+              </button>
             </div>
             <div className="pd-qtr">
-              <button value="friday" onClick={handleDayClick} className="day-btns">Friday</button>
+              <button value="friday" id="5" onClick={handleDayClick} className="day-btns">
+                <div>Friday</div>
+                <div>{parseInt(justDayDate) + 5}</div></button>
             </div>
             <div className="pd-qtr">
-              <button value="saturday" onClick={handleDayClick} className="day-btns">Saturday</button>
+              <button value="saturday" id="6" onClick={handleDayClick} className="day-btns">
+                <div>Saturday</div>
+                <div>{parseInt(justDayDate) + 6}</div>
+              </button>
             </div>
           </div>
 
@@ -136,6 +186,7 @@ export default function Home(props) {
         <div className="row">
           <div className="col-full centered">
             <h1>{renderTitle}</h1>
+            <h2>{renderDayTitle}</h2>
           </div>
         </div>
         <div className="row">

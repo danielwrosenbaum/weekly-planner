@@ -28,13 +28,13 @@ app.get('/api/weeklyPlanner/:dayOfWeek', (req, res, next) => {
 });
 
 app.post('/api/weeklyPlanner', (req, res, next) => {
-  const { day, time, description, indexTime } = req.body;
+  const { day, time, description, indexTime, fullDate } = req.body;
   const sql = `
-  insert into "planner" ("day", "time", "description", "indexTime")
-  values ($1, $2, $3, $4)
+  insert into "planner" ("day", "time", "description", "indexTime", "fullDate")
+  values ($1, $2, $3, $4, $5)
   returning *
   `;
-  const params = [day, time, description, indexTime];
+  const params = [day, time, description, indexTime, fullDate];
   db.query(sql, params)
     .then(result => {
       res.status(201).json(result.rows[0]);
@@ -44,8 +44,23 @@ app.post('/api/weeklyPlanner', (req, res, next) => {
 
 app.put('/api/weeklyPlanner/:entryId', (req, res, next) => {
   const entryId = req.params.entryId;
-  const { day, time, description, indexTime } = req.body;
-  const sql = `
+  const { day, time, description, indexTime, fullDate } = req.body;
+  let sql;
+  let params;
+  if (fullDate !== 1) {
+    sql = `
+  update "planner"
+    set "day" = $1,
+        "time" = $2,
+        "description" = $3,
+        "indexTime" = $4,
+        "fullDate" = $5
+    where "entryId" = $6
+    returning *
+  `;
+    params = [day, time, description, indexTime, fullDate, entryId];
+  } else {
+    sql = `
   update "planner"
     set "day" = $1,
         "time" = $2,
@@ -54,7 +69,9 @@ app.put('/api/weeklyPlanner/:entryId', (req, res, next) => {
     where "entryId" = $5
     returning *
   `;
-  const params = [day, time, description, indexTime, entryId];
+    params = [day, time, description, indexTime, entryId];
+  }
+
   db.query(sql, params)
     .then(result => {
       const [entry] = result.rows;

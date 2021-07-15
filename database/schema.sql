@@ -9,10 +9,11 @@ create schema "public";
 create table "public"."planner" (
   "entryId"               serial,
   "indexTime"             text,
+  "fullDate"              text,
   "day"                   text,
   "time"                  text,
   "description"           text,
   "createdAt"             timestamptz(6) default now(),
   primary key ("entryId"),
-  unique("indexTime")
+  unique("fullDate")
 )
