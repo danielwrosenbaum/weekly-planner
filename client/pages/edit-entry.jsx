@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { startOfWeek, endOfWeek, format, eachDayOfInterval } from 'date-fns';
+
 // import Home from './home';
 
 export default function EditEntry(props) {
@@ -7,15 +9,33 @@ export default function EditEntry(props) {
   const [time, setTime] = useState(props.value.time);
   const [indexTime, setIndexTime] = useState(props.value.indexTime);
   const [description, setDescription] = useState(props.value.description);
+  const [whichDayNumberisClicked, setWhichDayNumberisClicked] = useState(props.dateNumber);
 
   const handleCancel = () => {
     props.onClick();
   };
+  function renderDayOfWeekDate(day) {
+    const curr = new Date();
+    const start = startOfWeek(curr);
+    const end = endOfWeek(curr);
+    const thisWeek = eachDayOfInterval({
+      start,
+      end
+    });
+    return thisWeek[day];
+  }
+  const renderDayTitle = format(renderDayOfWeekDate(whichDayNumberisClicked), 'MM/dd/yyyy');
 
   const handleSubmit = event => {
     event.preventDefault();
     const entryId = props.value.entryId;
-    const fullDate = props.date + ', ' + time;
+    let fullDate;
+    if (time !== props.value.time || dayOfWeek !== props.value.day) {
+      fullDate = renderDayTitle + ', ' + time;
+    } else {
+      fullDate = 1;
+    }
+
     const entry = {
       day: dayOfWeek,
       fullDate,
@@ -39,7 +59,11 @@ export default function EditEntry(props) {
   };
 
   const handleDayChange = event => {
-    setDayofWeek(event.target.value);
+    const splitValue = event.target.value.split(',');
+    const dayName = splitValue[0];
+    const dayNum = splitValue[1];
+    setDayofWeek(dayName);
+    setWhichDayNumberisClicked(dayNum);
   };
   function handleEditTime(time) {
     const newTime = time.substring(0, 2) + ':' + time.substring(2);
@@ -89,18 +113,18 @@ export default function EditEntry(props) {
               <div className="col-full">
                 <div className="select-container">
                   <select
-                    value={dayOfWeek}
+                    value={dayOfWeek + ',' + whichDayNumberisClicked}
                     onChange={handleDayChange}
                     required
                     name="day">
                     <option value={''}>--Day of the Week--</option>
-                    <option value={'sunday'}>Sunday</option>
-                    <option value={'monday'}>Monday</option>
-                    <option value={'tuesday'}>Tuesday</option>
-                    <option value={'wednesday'}>Wednesday</option>
-                    <option value={'thursday'}>Thursday</option>
-                    <option value={'friday'}>Friday</option>
-                    <option value={'saturday'}>Saturday</option>
+                    <option value={'sunday,0'}>Sunday</option>
+                    <option value={'monday,1'}>Monday</option>
+                    <option value={'tuesday,2'}>Tuesday</option>
+                    <option value={'wednesday,3'}>Wednesday</option>
+                    <option value={'thursday,4'}>Thursday</option>
+                    <option value={'friday,5'}>Friday</option>
+                    <option value={'saturday,6'}>Saturday</option>
                   </select>
                   <input value={handleEditTime(indexTime)} onChange={handleTimeChange} type="time" required name="time"></input>
                 </div>
