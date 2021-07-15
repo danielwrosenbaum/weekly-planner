@@ -1,7 +1,9 @@
 
 body {
   color: #053742;
-  background-color: #e8f0f2;
+
+  /* background-color: #e8f0f2;  */
+  background: linear-gradient(150deg, #fff 0%, #f8fbfb 50%, #e8f0f2 100%);
 }
 
 .page-container {
@@ -137,8 +139,13 @@ button {
 
 button:hover {
   cursor: pointer;
-  background-color: #8c8c8c;
+  background-color: #91c5e1;
   color: #f2f2f2;
+}
+
+.day-btns:hover {
+  background-color: #91c5e1;
+  color: #f5fbfe;
 }
 
 select,
