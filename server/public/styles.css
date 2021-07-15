@@ -106,7 +106,15 @@ body {
 
 .add-btn {
   width: 125px;
-  height: 25px;
+  height: 40px;
+  background-color: #e3f4fd;
+
+  /* border-radius: 0.25rem; */
+}
+
+.add-btn:hover {
+  color: #f5fbfe;
+  background-color: #a2dbfa;
 }
 
 .pd-one {
@@ -123,8 +131,7 @@ body {
   justify-content: center;
   align-items: center;
 
-  /* text-align: center; */
-  border-radius: 0.25rem;
+  /* border-radius: 0.25rem; */
   width: 100px;
   height: 60px;
 }
@@ -135,12 +142,14 @@ button {
   font-size: 1rem;
   background-color: #ccc;
   color: #262626;
+  border-radius: 0.25rem;
 }
 
 button:hover {
   cursor: pointer;
-  background-color: #91c5e1;
-  color: #f2f2f2;
+
+  /* background-color: #91c5e1;
+  color: #f2f2f2; */
 }
 
 .day-btns:hover {
@@ -170,8 +179,8 @@ table {
 }
 
 thead:first-child {
-  background: linear-gradient(-120deg, #737373 0%, #262626 75%);
-  color: #f2f2f2;
+  background: linear-gradient(-120deg, #afd9f0 0%, #74bde5 50%, #39a2db 100%);
+  color: #fff;
 }
 
 tr {
@@ -179,13 +188,11 @@ tr {
 }
 
 tbody tr:nth-child(odd) {
-  background-color: #ccc;
-
-  /* background: linear-gradient(-120deg, #F2F2F2 0%, #A1A3A6 100%); */
+  background-color: #c3e3f4;
 }
 
 tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #ebf5fb;
 }
 
 th {
@@ -201,11 +208,12 @@ th {
 }
 
 .th-description {
-  width: 60%;
+  width: 50%;
+  height: fit-content;
 }
 
 .th-button {
-  width: 10%;
+  width: 20%;
 }
 
 .btn-table-row {
