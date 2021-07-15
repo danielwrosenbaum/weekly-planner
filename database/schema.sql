@@ -11,6 +11,7 @@ create table "public"."planner" (
   "indexTime"             text,
   "fullDate"              text,
   "day"                   text,
+  "location"              text,
   "time"                  text,
   "description"           text,
   "createdAt"             timestamptz(6) default now(),

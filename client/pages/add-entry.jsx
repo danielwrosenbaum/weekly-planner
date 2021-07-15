@@ -7,6 +7,7 @@ export default function AddEntry(props) {
   const [time, setTime] = useState('');
   const [indexTime, setIndexTime] = useState('');
   const [description, setDescription] = useState('');
+  const [location, setLocation] = useState('');
 
   const handleCancel = () => {
     props.onClick();
@@ -20,7 +21,8 @@ export default function AddEntry(props) {
       fullDate,
       time,
       description,
-      indexTime
+      indexTime,
+      location
     };
     const req = {
       method: 'POST',
@@ -68,7 +70,9 @@ export default function AddEntry(props) {
   const handleDescriptionChange = event => {
     setDescription(event.target.value);
   };
-
+  const handleLocationChange = event => {
+    setLocation(event.target.value);
+  };
   return (
     <div className="modal">
       <div className="modal-container">
@@ -97,6 +101,15 @@ export default function AddEntry(props) {
                     <option value={'saturday'}>Saturday</option>
                   </select>
                   <input onChange={handleTimeChange} type="time" required name="time"></input>
+                </div>
+                <div className="row pd-one">
+                  <div className="col-full">
+                    <textarea
+                      onChange={handleLocationChange}
+                      name="Location"
+                      placeholder="Location"
+                      rows="2"></textarea>
+                  </div>
                 </div>
                 <div className="row pd-one">
                   <div className="col-full">

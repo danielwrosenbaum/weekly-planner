@@ -106,7 +106,7 @@ export default function Home(props) {
               return (
                 <tr key={index}>
                   <td>{entry.time}</td>
-                  <td></td>
+                  <td>{entry.location}</td>
                   <td>{entry.description}</td>
                   <td className="btn-table-row">
                     <button value={entry} onClick={() => handleEditClick(entry)}>Edit</button>
