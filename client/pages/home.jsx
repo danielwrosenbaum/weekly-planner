@@ -89,7 +89,7 @@ export default function Home(props) {
     return thisWeek[day];
   }
   const renderDayTitle = format(renderDayOfWeekDate(whichDayNumberisClicked), 'MM/dd/yyyy');
-  const renderWeekTitle = start + ' to ' + end;
+  const renderWeekTitle = start + ' - ' + end;
 
   const handleDayClick = event => {
     const button = event.target.closest('button');
