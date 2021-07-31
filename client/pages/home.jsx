@@ -173,9 +173,9 @@ export default function Home(props) {
           <div className="col-full centered">
             <h2 className="page-title">Weekly Planner</h2>
             <div className="row justify-content-ctr">
-              <button>{'<<'}</button>
+              <button className="week-btns">{'<<'}</button>
               <h3>{renderWeekTitle}</h3>
-              <button>{'>>'}</button>
+              <button className="week-btns">{'>>'}</button>
             </div>
           </div>
         </div>

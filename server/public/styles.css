@@ -248,6 +248,13 @@ td {
   padding: 0.25rem 0.25rem 0.25rem 0.5rem;
 }
 
+.week-btns {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  margin: 0.5rem;
+}
+
 .sun-btn {
   background-color: #d9f0fd;
 }
