@@ -106,11 +106,14 @@ export default function Home(props) {
               return (
                 <tr key={index}>
                   <td>{entry.time}</td>
-                  <td></td>
+                  <td>{entry.location}</td>
                   <td>{entry.description}</td>
                   <td className="btn-table-row">
-                    <button value={entry} onClick={() => handleEditClick(entry)}>Edit</button>
-                    <button value={entry} onClick={() => handleDelete(entry)}>Delete</button>
+                    <div className="btn-table-container">
+                      <button className="btn-table-edit" value={entry} onClick={() => handleEditClick(entry)}>Edit</button>
+                      <button className="btn-table-delete" value={entry} onClick={() => handleDelete(entry)}>Delete</button>
+                    </div>
+
                   </td>
                 </tr>
               );
@@ -132,49 +135,49 @@ export default function Home(props) {
         {(isDeleteClicked) && <DeleteModal value={editEntry} onClick={handleDelete} />}
         <div className="row">
           <div className="col-full centered">
-            <h2>Weekly Planner</h2>
+            <h2 className="page-title">Weekly Planner</h2>
             <h3>{renderWeekTitle}</h3>
           </div>
         </div>
         <div className="day-btns-container">
           <div className="row space-evenly wrap">
             <div className="pd-qtr">
-              <button value="sunday" id={0} onClick={handleDayClick} className="day-btns">
+              <button value="sunday" id={0} onClick={handleDayClick} className="day-btns sun-btn">
                 <div>Sunday</div>
                 <div>{parseInt(justDayDate)}</div>
                 </button>
             </div>
             <div className="pd-qtr">
-              <button value="monday" id="1" onClick={handleDayClick} className="day-btns">
+              <button value="monday" id="1" onClick={handleDayClick} className="day-btns mon-btn">
                 <div>Monday</div>
                 <div>{parseInt(justDayDate) + 1}</div>
               </button>
             </div>
             <div className="pd-qtr">
-              <button value="tuesday" id="2" onClick={handleDayClick} className="day-btns">
+              <button value="tuesday" id="2" onClick={handleDayClick} className="day-btns tues-btn">
                 <div>Tuesday</div>
                 <div>{parseInt(justDayDate) + 2}</div>
               </button>
             </div>
             <div className="pd-qtr">
-              <button value="wednesday" id="3" onClick={handleDayClick} className="day-btns">
+              <button value="wednesday" id="3" onClick={handleDayClick} className="day-btns wed-btn">
                 <div>Wednesday</div>
                 <div>{parseInt(justDayDate) + 3}</div>
               </button>
             </div>
             <div className="pd-qtr">
-              <button value="thursday" id="4" onClick={handleDayClick} className="day-btns">
+              <button value="thursday" id="4" onClick={handleDayClick} className="day-btns thurs-btn">
                 <div>Thursday</div>
                 <div>{parseInt(justDayDate) + 4}</div>
               </button>
             </div>
             <div className="pd-qtr">
-              <button value="friday" id="5" onClick={handleDayClick} className="day-btns">
+              <button value="friday" id="5" onClick={handleDayClick} className="day-btns fri-btn">
                 <div>Friday</div>
                 <div>{parseInt(justDayDate) + 5}</div></button>
             </div>
             <div className="pd-qtr">
-              <button value="saturday" id="6" onClick={handleDayClick} className="day-btns">
+              <button value="saturday" id="6" onClick={handleDayClick} className="day-btns sat-btn">
                 <div>Saturday</div>
                 <div>{parseInt(justDayDate) + 6}</div>
               </button>

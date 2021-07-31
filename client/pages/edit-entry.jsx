@@ -9,6 +9,7 @@ export default function EditEntry(props) {
   const [time, setTime] = useState(props.value.time);
   const [indexTime, setIndexTime] = useState(props.value.indexTime);
   const [description, setDescription] = useState(props.value.description);
+  const [location, setLocation] = useState(props.value.location);
   const [whichDayNumberisClicked, setWhichDayNumberisClicked] = useState(props.dateNumber);
 
   const handleCancel = () => {
@@ -41,7 +42,8 @@ export default function EditEntry(props) {
       fullDate,
       time,
       description,
-      indexTime
+      indexTime,
+      location
     };
     const req = {
       method: 'PUT',
@@ -98,7 +100,9 @@ export default function EditEntry(props) {
   const handleDescriptionChange = event => {
     setDescription(event.target.value);
   };
-
+  const handleLocationChange = event => {
+    setLocation(event.target.value);
+  };
   return (
     <div className="modal">
       <div className="modal-container">
@@ -127,6 +131,15 @@ export default function EditEntry(props) {
                     <option value={'saturday,6'}>Saturday</option>
                   </select>
                   <input value={handleEditTime(indexTime)} onChange={handleTimeChange} type="time" required name="time"></input>
+                </div>
+                <div className="row pd-one">
+                  <div className="col-full">
+                    <textarea
+                      onChange={handleLocationChange}
+                      name="Location"
+                      placeholder="Location"
+                      rows="2"></textarea>
+                  </div>
                 </div>
                 <div className="row pd-one">
                   <div className="col-full">

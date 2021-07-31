@@ -28,13 +28,13 @@ app.get('/api/weeklyPlanner/:dayOfWeek', (req, res, next) => {
 });
 
 app.post('/api/weeklyPlanner', (req, res, next) => {
-  const { day, time, description, indexTime, fullDate } = req.body;
+  const { day, time, description, indexTime, location, fullDate } = req.body;
   const sql = `
-  insert into "planner" ("day", "time", "description", "indexTime", "fullDate")
-  values ($1, $2, $3, $4, $5)
+  insert into "planner" ("day", "time", "description", "indexTime", "location", "fullDate")
+  values ($1, $2, $3, $4, $5, $6)
   returning *
   `;
-  const params = [day, time, description, indexTime, fullDate];
+  const params = [day, time, description, indexTime, location, fullDate];
   db.query(sql, params)
     .then(result => {
       res.status(201).json(result.rows[0]);
@@ -44,7 +44,7 @@ app.post('/api/weeklyPlanner', (req, res, next) => {
 
 app.put('/api/weeklyPlanner/:entryId', (req, res, next) => {
   const entryId = req.params.entryId;
-  const { day, time, description, indexTime, fullDate } = req.body;
+  const { day, time, description, indexTime, location, fullDate } = req.body;
   let sql;
   let params;
   if (fullDate !== 1) {
@@ -54,22 +54,24 @@ app.put('/api/weeklyPlanner/:entryId', (req, res, next) => {
         "time" = $2,
         "description" = $3,
         "indexTime" = $4,
-        "fullDate" = $5
-    where "entryId" = $6
+        "location" = $5,
+        "fullDate" = $6
+    where "entryId" = $7
     returning *
   `;
-    params = [day, time, description, indexTime, fullDate, entryId];
+    params = [day, time, description, indexTime, location, fullDate, entryId];
   } else {
     sql = `
   update "planner"
     set "day" = $1,
         "time" = $2,
         "description" = $3,
-        "indexTime" = $4
-    where "entryId" = $5
+        "indexTime" = $4,
+        "location" = $5
+    where "entryId" = $6
     returning *
   `;
-    params = [day, time, description, indexTime, entryId];
+    params = [day, time, description, indexTime, location, entryId];
   }
 
   db.query(sql, params)
