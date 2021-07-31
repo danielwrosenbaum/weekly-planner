@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import AddEntry from './add-entry';
 import EditEntry from './edit-entry';
 import DeleteModal from './delete-modal';
-import { startOfWeek, endOfWeek, format, eachDayOfInterval } from 'date-fns';
+import { startOfWeek, endOfWeek, format, eachDayOfInterval, sub, add } from 'date-fns';
 
 export default function Home(props) {
-  const { start, end, startData, justDayDate } = renderDates();
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const { start, end, startData, justDayDate } = renderDates(currentDate);
   const [isAddClicked, setIsAddClicked] = useState(false);
   const [isEditClicked, setisEditClicked] = useState(false);
   const [isDeleteClicked, setisDeleteClicked] = useState(false);
@@ -64,8 +65,8 @@ export default function Home(props) {
         setNewData(false);
       });
   };
-  function renderDates() {
-    const curr = new Date();
+  function renderDates(curr) {
+    // const curr = new Date();
     const start = format(startOfWeek(curr), 'MM/dd/yyyy');
     const startData = format(startOfWeek(curr), 'MM-dd-yyyy');
     const end = format(endOfWeek(curr), 'MM/dd/yyyy');
@@ -84,8 +85,7 @@ export default function Home(props) {
 
   const renderTitle =
     whichDayisClicked[0].toUpperCase() + whichDayisClicked.slice(1);
-  function renderDayOfWeekDate(day) {
-    const curr = new Date();
+  function renderDayOfWeekDate(day, curr) {
     const start = startOfWeek(curr);
     const end = endOfWeek(curr);
     const thisWeek = eachDayOfInterval({
@@ -95,7 +95,7 @@ export default function Home(props) {
     return thisWeek[day];
   }
   const renderDayTitle = format(
-    renderDayOfWeekDate(whichDayNumberisClicked),
+    renderDayOfWeekDate(whichDayNumberisClicked, currentDate),
     'MM/dd/yyyy'
   );
   const renderWeekTitle = start + ' - ' + end;
@@ -105,6 +105,15 @@ export default function Home(props) {
     const buttonValue = button.value;
     setWhichDayisClicked(buttonValue);
     setwhichDayNumberisClicked(button.id);
+  };
+  const handleBackBtn = event => {
+    const backWeek = sub(currentDate, { days: 7 });
+    setCurrentDate(backWeek);
+  };
+
+  const handleForwardBtn = event => {
+    const forwardWeek = add(currentDate, { days: 7 });
+    setCurrentDate(forwardWeek);
   };
   function renderDays() {
     if (data) {
@@ -173,9 +182,9 @@ export default function Home(props) {
           <div className="col-full centered">
             <h2 className="page-title">Weekly Planner</h2>
             <div className="row justify-content-ctr">
-              <button className="week-btns">{'<<'}</button>
+              <button onClick={handleBackBtn} className="week-btns">{'<<'}</button>
               <h3>{renderWeekTitle}</h3>
-              <button className="week-btns">{'>>'}</button>
+              <button onClick={handleForwardBtn} className="week-btns">{'>>'}</button>
             </div>
           </div>
         </div>
