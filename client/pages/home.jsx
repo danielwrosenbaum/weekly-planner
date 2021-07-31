@@ -5,6 +5,7 @@ import DeleteModal from './delete-modal';
 import { startOfWeek, endOfWeek, format, eachDayOfInterval } from 'date-fns';
 
 export default function Home(props) {
+  const { start, end, startData, justDayDate } = renderDates();
   const [isAddClicked, setIsAddClicked] = useState(false);
   const [isEditClicked, setisEditClicked] = useState(false);
   const [isDeleteClicked, setisDeleteClicked] = useState(false);
@@ -13,7 +14,7 @@ export default function Home(props) {
   const [data, setData] = useState(null);
   const [editEntry, seteditEntry] = useState(null);
   const [newData, setNewData] = useState(true);
-
+  const [week] = useState(startData);
   useEffect(() => {
     loadData();
   }, [newData, whichDayisClicked, isDeleteClicked]);
@@ -56,7 +57,7 @@ export default function Home(props) {
   };
 
   const loadData = () => {
-    fetch(`/api/weeklyPlanner/${whichDayisClicked}`)
+    fetch(`/api/weeklyPlanner/${week}/${whichDayisClicked}`)
       .then(res => res.json())
       .then(result => {
         setData(result);
@@ -66,17 +67,21 @@ export default function Home(props) {
   function renderDates() {
     const curr = new Date();
     const start = format(startOfWeek(curr), 'MM/dd/yyyy');
+    const startData = format(startOfWeek(curr), 'MM-dd-yyyy');
     const end = format(endOfWeek(curr), 'MM/dd/yyyy');
     const justDayDate = format(startOfWeek(curr), 'dd');
     const weekDates = {
       start,
       end,
+      startData,
       justDayDate
     };
+
     return weekDates;
   }
 
-  const { start, end, justDayDate } = renderDates();
+  // const { start, end, justDayDate } = renderDates();
+
   const renderTitle = whichDayisClicked[0].toUpperCase() + whichDayisClicked.slice(1);
   function renderDayOfWeekDate(day) {
     const curr = new Date();
@@ -130,8 +135,8 @@ export default function Home(props) {
   return (
     <>
       <div className="page-container">
-        {(isAddClicked) && <AddEntry onClick={handleClick} onSubmit={handleNewData} value={whichDayisClicked} date={renderDayTitle} />}
-        {(isEditClicked) && <EditEntry value={editEntry} onClick={handleEdit} onSubmit={handleNewData} date={renderDayTitle} dateNumber={whichDayNumberisClicked} />}
+        {(isAddClicked) && <AddEntry onClick={handleClick} onSubmit={handleNewData} value={whichDayisClicked} date={renderDayTitle} weekStart={startData} />}
+        {(isEditClicked) && <EditEntry value={editEntry} onClick={handleEdit} onSubmit={handleNewData} date={renderDayTitle} weekStart={start} dateNumber={whichDayNumberisClicked} />}
         {(isDeleteClicked) && <DeleteModal value={editEntry} onClick={handleDelete} />}
         <div className="row">
           <div className="col-full centered">

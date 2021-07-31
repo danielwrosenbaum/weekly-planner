@@ -8,6 +8,7 @@ export default function AddEntry(props) {
   const [indexTime, setIndexTime] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
+  const [week] = useState(props.weekStart);
 
   const handleCancel = () => {
     props.onClick();
@@ -22,7 +23,8 @@ export default function AddEntry(props) {
       time,
       description,
       indexTime,
-      location
+      location,
+      week
     };
     const req = {
       method: 'POST',

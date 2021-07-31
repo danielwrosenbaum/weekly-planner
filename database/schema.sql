@@ -10,6 +10,7 @@ create table "public"."planner" (
   "entryId"               serial,
   "indexTime"             text,
   "fullDate"              text,
+  "week"                  text,
   "day"                   text,
   "location"              text,
   "time"                  text,

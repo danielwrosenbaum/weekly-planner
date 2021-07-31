@@ -11,15 +11,17 @@ const jsonMiddleware = express.json();
 app.use(staticMiddleware);
 app.use(jsonMiddleware);
 
-app.get('/api/weeklyPlanner/:dayOfWeek', (req, res, next) => {
+app.get('/api/weeklyPlanner/:week/:dayOfWeek', (req, res, next) => {
+  const week = req.params.week;
   const dayOfWeek = req.params.dayOfWeek;
   const sql = `
   select *
     from "planner"
     where "day" = $1
+    and "week" = $2
     order by "indexTime"
   `;
-  const params = [dayOfWeek];
+  const params = [dayOfWeek, week];
   db.query(sql, params)
     .then(result => {
       res.status(201).json(result.rows);
@@ -28,13 +30,13 @@ app.get('/api/weeklyPlanner/:dayOfWeek', (req, res, next) => {
 });
 
 app.post('/api/weeklyPlanner', (req, res, next) => {
-  const { day, time, description, indexTime, location, fullDate } = req.body;
+  const { day, time, description, indexTime, location, fullDate, week } = req.body;
   const sql = `
-  insert into "planner" ("day", "time", "description", "indexTime", "location", "fullDate")
-  values ($1, $2, $3, $4, $5, $6)
+  insert into "planner" ("day", "time", "description", "indexTime", "location", "fullDate", "week")
+  values ($1, $2, $3, $4, $5, $6, $7)
   returning *
   `;
-  const params = [day, time, description, indexTime, location, fullDate];
+  const params = [day, time, description, indexTime, location, fullDate, week];
   db.query(sql, params)
     .then(result => {
       res.status(201).json(result.rows[0]);
@@ -44,7 +46,7 @@ app.post('/api/weeklyPlanner', (req, res, next) => {
 
 app.put('/api/weeklyPlanner/:entryId', (req, res, next) => {
   const entryId = req.params.entryId;
-  const { day, time, description, indexTime, location, fullDate } = req.body;
+  const { day, time, description, indexTime, location, fullDate, week } = req.body;
   let sql;
   let params;
   if (fullDate !== 1) {
@@ -55,11 +57,12 @@ app.put('/api/weeklyPlanner/:entryId', (req, res, next) => {
         "description" = $3,
         "indexTime" = $4,
         "location" = $5,
-        "fullDate" = $6
-    where "entryId" = $7
+        "fullDate" = $6,
+        "week" = $7
+    where "entryId" = $8
     returning *
   `;
-    params = [day, time, description, indexTime, location, fullDate, entryId];
+    params = [day, time, description, indexTime, location, fullDate, week, entryId];
   } else {
     sql = `
   update "planner"
@@ -67,11 +70,12 @@ app.put('/api/weeklyPlanner/:entryId', (req, res, next) => {
         "time" = $2,
         "description" = $3,
         "indexTime" = $4,
-        "location" = $5
-    where "entryId" = $6
+        "location" = $5,
+        "week" = $6,
+    where "entryId" = $7
     returning *
   `;
-    params = [day, time, description, indexTime, location, entryId];
+    params = [day, time, description, indexTime, location, week, entryId];
   }
 
   db.query(sql, params)
