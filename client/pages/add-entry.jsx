@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import { startOfWeek, endOfWeek, format, eachDayOfInterval } from 'date-fns';
 // import Home from './home';
 
 export default function AddEntry(props) {
-  // const [isAddClicked, setIsAddClicked] = useState(props);
+
   const [dayOfWeek, setDayofWeek] = useState(props.value);
   const [time, setTime] = useState('');
   const [indexTime, setIndexTime] = useState('');
   const [description, setDescription] = useState('');
   const [location, setLocation] = useState('');
-
+  const [week] = useState(props.weekStart);
+  const [dayNumber, setDayNumber] = useState(0);
+  const clickedDate = new Date(week);
   const handleCancel = () => {
     props.onClick();
   };
@@ -22,7 +25,8 @@ export default function AddEntry(props) {
       time,
       description,
       indexTime,
-      location
+      location,
+      week
     };
     const req = {
       method: 'POST',
@@ -39,8 +43,23 @@ export default function AddEntry(props) {
       });
   };
 
+  function renderDayOfWeekDate(curr, day) {
+    const start = startOfWeek(curr);
+    const end = endOfWeek(curr);
+    const thisWeek = eachDayOfInterval({
+      start,
+      end
+    });
+    return thisWeek[day];
+  }
+
+  const dateTitle = renderDayOfWeekDate(clickedDate, dayNumber);
+  const formatDays = format(dateTitle, 'MM/dd/yyyy');
+
   const handleDayChange = event => {
     setDayofWeek(event.target.value);
+    const e = event.target;
+    setDayNumber(e.options[e.selectedIndex].id);
   };
 
   const handleTimeChange = event => {
@@ -81,6 +100,7 @@ export default function AddEntry(props) {
             <div className="row">
               <div className="col-full">
                 <h2>Add Entry</h2>
+                <h3>{formatDays}</h3>
               </div>
             </div>
             <div className="row">
@@ -90,17 +110,37 @@ export default function AddEntry(props) {
                     onChange={handleDayChange}
                     required
                     name="day"
-                    value={dayOfWeek}>
+                    value={dayOfWeek}
+                  >
                     <option value={''}>--Day of the Week--</option>
-                    <option value={'sunday'}>Sunday</option>
-                    <option value={'monday'}>Monday</option>
-                    <option value={'tuesday'}>Tuesday</option>
-                    <option value={'wednesday'}>Wednesday</option>
-                    <option value={'thursday'}>Thursday</option>
-                    <option value={'friday'}>Friday</option>
-                    <option value={'saturday'}>Saturday</option>
+                    <option id={0} value={'sunday'}>
+                      Sunday
+                    </option>
+                    <option id={1} value={'monday'}>
+                      Monday
+                    </option>
+                    <option id={2} value={'tuesday'}>
+                      Tuesday
+                    </option>
+                    <option id={3} value={'wednesday'}>
+                      Wednesday
+                    </option>
+                    <option id={4} value={'thursday'}>
+                      Thursday
+                    </option>
+                    <option id={5} value={'friday'}>
+                      Friday
+                    </option>
+                    <option id={6} value={'saturday'}>
+                      Saturday
+                    </option>
                   </select>
-                  <input onChange={handleTimeChange} type="time" required name="time"></input>
+                  <input
+                    onChange={handleTimeChange}
+                    type="time"
+                    required
+                    name="time"
+                  ></input>
                 </div>
                 <div className="row pd-one">
                   <div className="col-full">
@@ -108,7 +148,8 @@ export default function AddEntry(props) {
                       onChange={handleLocationChange}
                       name="Location"
                       placeholder="Location"
-                      rows="2"></textarea>
+                      rows="2"
+                    ></textarea>
                   </div>
                 </div>
                 <div className="row pd-one">
@@ -118,13 +159,18 @@ export default function AddEntry(props) {
                       onChange={handleDescriptionChange}
                       name="description"
                       placeholder="Description"
-                      rows="5"></textarea>
+                      rows="5"
+                    ></textarea>
                   </div>
                 </div>
                 <div className="row pd-one btn-container">
                   <div className="col-full  space-evenly">
-                    <button onClick={handleCancel} className="btn-cancel">Cancel</button>
-                    <button type="submit" className="btn-submit">Submit</button>
+                    <button onClick={handleCancel} className="btn-cancel">
+                      Cancel
+                    </button>
+                    <button type="submit" className="btn-submit">
+                      Submit
+                    </button>
                   </div>
                 </div>
               </div>
