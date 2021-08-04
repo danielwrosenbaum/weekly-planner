@@ -111,6 +111,7 @@ export default function EditEntry(props) {
             <div className="row">
               <div className="col-full">
                 <h2>Edit Entry</h2>
+                <h3>{renderDayTitle}</h3>
               </div>
             </div>
             <div className="row">
